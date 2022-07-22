@@ -533,6 +533,8 @@ func writeValue(w io.Writer, val reflect.Value) (err error) {
 		err = writeStruct(w, v)
 	case reflect.Interface:
 		err = writeValue(w, v.Elem())
+	case reflect.Ptr:
+		err = writeValue(w, v.Elem())
 	default:
 		err = &MarshalError{val.Type()}
 	}
